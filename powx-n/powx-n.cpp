@@ -9,10 +9,10 @@ public:
             return 1;
         }
         if ((n & 1) == 0) {
-            return myPow(x * x, n / 2);
+            return myPow(x * x, n >> 1);
         }
         else {
-            return x * myPow(x * x, n / 2);
+            return x * myPow(x * x, n >> 1);
         }
     }
 };
