@@ -7,19 +7,8 @@ public:
             left = max(left, num);
         }
         while(left < right) {
-            int mid = (left + right) / 2;
-            cout << mid << endl;
-            int num_bags(1);
-            int cur = 0;
-            for (int i = 0; i < nums.size(); cur += nums[i++]) {
-                cout << cur << endl;
-                if (cur + nums[i] > mid) {
-                    cur = 0;
-                    num_bags++;
-                }
-            }     
-            
-            if (m < num_bags) { // bags are too small
+            int mid = (left + right) / 2; 
+            if (splitBags(nums, mid) > m) {
                 left = mid + 1;
             }
             else{
@@ -27,5 +16,18 @@ public:
             }      
         }
         return left;
+    }
+private:
+    int splitBags(vector<int>& nums, int target) {
+        int sum = 0;
+        int n_bags = 1;
+        for (int i = 0; i < nums.size(); i++) {
+            if (sum + nums[i] > target) {
+                sum = 0;
+                n_bags++;
+            }
+            sum += nums[i];
+        }
+        return n_bags;
     }
 };
