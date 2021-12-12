@@ -1,26 +1,34 @@
 class Solution {
 public:
     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
-        n_rows = image.size();
-        n_cols = image[0].size();
-        dfs(image, sr, sc, image[sr][sc], newColor);
+        int n_rows = image.size();
+        int n_cols = image[0].size();
+        int oldColor = image[sr][sc];
+        if (newColor == oldColor) {
+            return image;
+        }
+
+        stack<pair<int, int>> dfs;
+        dfs.push({ sr, sc });
+        while (!dfs.empty()) {
+            auto [row, col] = dfs.top();
+            dfs.pop();
+            if (image[row][col] == oldColor) {
+                image[row][col] = newColor;
+            }
+            if (row >= 1 && image[row - 1][col] == oldColor) {
+                dfs.push({ row - 1, col });
+            }
+            if (row + 1 < n_rows && image[row + 1][col] == oldColor) {
+                dfs.push({ row + 1, col });
+            }
+            if (col >= 1 && image[row][col - 1] == oldColor) {
+                dfs.push({ row, col - 1 });
+            }
+            if (col + 1 < n_cols && image[row][col + 1] == oldColor) {
+                dfs.push({ row, col + 1 });
+            }
+        }
         return image;
     }
-
-    void dfs(vector<vector<int>>& image, int r, int c, int oldColor, int newColor) {
-        if (r >= n_rows || r < 0 || c >= n_cols || c < 0) {
-            return;
-        }
-        if (image[r][c] != oldColor || image[r][c] == newColor) {
-            return;
-        }
-        image[r][c] = newColor;
-        dfs(image, r + 1, c, oldColor, newColor);
-        dfs(image, r - 1, c, oldColor, newColor);
-        dfs(image, r, c + 1, oldColor, newColor);
-        dfs(image, r, c - 1, oldColor, newColor);
-    }
-private:
-    int n_rows;
-    int n_cols;
 };
