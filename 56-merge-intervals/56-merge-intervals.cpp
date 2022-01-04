@@ -4,17 +4,17 @@ public:
         if (intervals.size() <= 1) {
             return intervals;
         }
-        vector<vector<int>> res;
-        sort(intervals.begin(), intervals.end(), [](auto a, auto b){ return a[1] < b[1]; });
-        for (auto& interval: intervals) {
-            int left = interval[0];
-            int right = interval[1];
-            while (!res.empty() && left <= res.back()[1]) {
-                left = min(left, res.back()[0]);
-                res.pop_back();
+        sort(intervals.begin(), intervals.end());
+        vector<vector<int>> output;
+        output.push_back(intervals[0]);
+        for (int i = 1; i < intervals.size(); i++) {
+            if (output.back()[1] >= intervals[i][0]) {
+                output.back()[1] = max(output.back()[1], intervals[i][1]);
             }
-            res.push_back({left, right});
+            else {
+                output.push_back(intervals[i]);
+            }
         }
-        return res;
+        return output;
     }
 };
