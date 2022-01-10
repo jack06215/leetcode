@@ -13,7 +13,7 @@ public:
         int left = 1;
         int right = n;
 
-        while (left <= right) {
+        while (left < right) {
             int mid = left + (right - left) / 2;
             int hint = guess(mid);
 
@@ -21,7 +21,7 @@ public:
                 return mid;
             }
             if (hint < 0) {
-                right = mid - 1;
+                right = mid;
             }
             else {
                 left = mid + 1;
