@@ -16,6 +16,6 @@ public:
                 left = mid + 1; // Find in the right side
             }
         }
-        return vector<int>(arr.begin() + startIdx, arr.begin() + startIdx + k);
+        return vector<int>(begin(arr) + startIdx, begin(arr) + startIdx + k);
     }
 };
