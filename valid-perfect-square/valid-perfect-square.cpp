@@ -9,7 +9,7 @@ public:
             if (squared == num) {
                 return true;
             }
-            else if (squared >= num) {
+            else if (squared > num) {
                 right = mid - 1;
             }
             else {
