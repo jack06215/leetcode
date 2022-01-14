@@ -1,7 +1,7 @@
 class Solution {
 public:
-    int vowels[26] = { 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1 };
     int maxVowels(string s, int k) {
+        int vowels[26] = { 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1 };
         int max_vow = 0;
         int cur_vow = 0;
         for (int i = 0; i < s.size(); ++i) {
