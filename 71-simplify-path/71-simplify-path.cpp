@@ -1,18 +1,18 @@
 class Solution {
 public:
     string simplifyPath(string path) {
-        string result;
-        string token;
+        string res;
         istringstream tokenizer(path);
+
         vector<string> dir;
+        string token;
         while (getline(tokenizer, token, '/')) {
             // no change
             if (token == "." || token == "") {
                 continue;
             }
-            // back to parent directory
+            // back to parent directory, skip if it's already root directory
             else if (token == "..") {
-                // skip if it's already root directory
                 if (!dir.empty()) {
                     dir.pop_back();
                 }
@@ -29,8 +29,8 @@ public:
 
         // make conanical directory
         for (const auto& it : dir) {
-            result += '/' + it;
+            res += '/' + it;
         }
-        return result;
+        return res;
     }
 };
