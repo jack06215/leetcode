@@ -20,7 +20,7 @@ public:
             return arr[left];
         }
 
-        int mid = (left + right) / 2;
+        int mid = left + (right - left) / 2;
         int sl = _maxSubArray(left, mid);
         int sr = _maxSubArray(mid + 1, right);
 
