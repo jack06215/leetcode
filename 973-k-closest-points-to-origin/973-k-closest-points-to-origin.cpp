@@ -13,8 +13,8 @@ public:
             R[i] = { points[mid + i + 1], sqrt(pow(points[mid + i + 1][1], 2) + pow(points[mid + i + 1][0], 2)) };
         }
 
-        L[lsize] = { vector<int>{ }, numeric_limits<double>::max() };
-        R[rsize] = { vector<int>{ }, numeric_limits<double>::max() };
+        L[lsize] = { {}, numeric_limits<double>::max() };
+        R[rsize] = { {}, numeric_limits<double>::max() };
         int i = 0, j = 0;
         for (int k = lo; k <= hi; k++) {
             if (islessequal(L[i].second, R[j].second)) {
