@@ -15,7 +15,8 @@ public:
 
         L[lsize] = { {}, numeric_limits<double>::max() };
         R[rsize] = { {}, numeric_limits<double>::max() };
-        int i = 0, j = 0;
+        int i = 0;
+        int j = 0;
         for (int k = lo; k <= hi; k++) {
             if (islessequal(L[i].second, R[j].second)) {
                 points[k] = L[i].first;
@@ -30,7 +31,7 @@ public:
 
     void kClosest(vector<vector<int> >& points, int lo, int hi) {
         if (lo < hi) {
-            int mid = floor((lo + hi) >> 1);
+            int mid = lo + (hi - lo) / 2;
             kClosest(points, lo, mid);
             kClosest(points, mid + 1, hi);
             combine(points, lo, mid, hi);
