@@ -18,10 +18,12 @@ public:
         int i = 0, j = 0;
         for (int k = lo; k <= hi; k++) {
             if (islessequal(L[i].second, R[j].second)) {
-                points[k] = L[i].first, i++;
+                points[k] = L[i].first;
+                i++;
             }
             else {
-                points[k] = R[j].first, j++;
+                points[k] = R[j].first;
+                j++;
             }
         }
     }
