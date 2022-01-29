@@ -1,4 +1,13 @@
 class Solution {
+    vector<int> memo;
+
+    int _fib(int n) {
+        if (memo[n] != -1) {
+            return memo[n];
+        }
+        memo[n] = _fib(n - 1) + _fib(n - 2);
+        return memo[n];
+    }
 public:
     int fib(int n) {
         if (n == 0) {
@@ -7,12 +16,9 @@ public:
         if (n == 1) {
             return 1;
         }
-        vector<int> dp(n + 1);
-        dp[0] = 0;
-        dp[1] = 1;
-        for (int i = 2; i < dp.size(); ++i) {
-            dp[i] = dp[i - 1] + dp[i - 2];
-        }
-        return dp[n];
+        memo.resize(n + 1, -1);
+        memo[0] = 0;
+        memo[1] = 1;
+        return _fib(n);
     }
 };
