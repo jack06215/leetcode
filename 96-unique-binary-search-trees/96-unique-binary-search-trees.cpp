@@ -1,25 +1,22 @@
 class Solution {
     vector<vector<int>> dp;
 public:
-    int helper(int i, int j) {
+    int helper(int begin, int end) {
 
-        if (i >= j) {
+        if (begin > end) {
             return 1;
         }
 
-        if (dp[i][j] != -1)
-            return dp[i][j];
+        if (dp[begin][end] != -1)
+            return dp[begin][end];
 
         int temp = 0;
-        int left;
-        int right;
-
-        for (int k = i; k <= j; ++k) {
-            left = helper(i, k - 1);
-            right = helper(k + 1, j);
+        for (int i = begin; i <= end; ++i) {
+            int left = helper(begin, i - 1);
+            int right = helper(i + 1, end);
             temp += left * right;
         }
-        return dp[i][j] = temp;
+        return dp[begin][end] = temp;
     }
 
     int numTrees(int n) {
