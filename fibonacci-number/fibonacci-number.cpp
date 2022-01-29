@@ -1,34 +1,24 @@
-using mat2d = std::vector<std::vector<int>>;
-
 class Solution {
+    vector<int> memo;
+
+    int _fib(int n) {
+        if (memo[n] != -1) {
+            return memo[n];
+        }
+        memo[n] = _fib(n - 1) + _fib(n - 2);
+        return memo[n];
+    }
 public:
     int fib(int n) {
-        if (n == 1) return 1;
-        mat2d F = { { 1, 1 }, { 1, 0 } };
-        if (n == 0)
+        if (n == 0) {
             return 0;
-         
-        mat2d result = expo(F, n - 1);
-        return result[0][0];
-    }
-    
-    mat2d multiply(const mat2d& A, const mat2d& B) {
-        mat2d C(A.size(), std::vector<int> (B[0].size(), 0));
-        for (int i = 0; i < A.size(); i++) {
-            for (int j = 0; j < B.size(); j++) {
-                for (int k = 0; k < A[0].size(); k++) {
-                    C[i][j] += A[i][k] * B[k][j];
-                }
-            }
         }
-        return C;
-    }
-    
-    mat2d expo(mat2d const& M, uint32_t n) {
-        if(n < 1)
-            throw;
-        if(n == 1)
-            return M;
-        return multiply(M, expo(M, n - 1));
+        if (n == 1) {
+            return 1;
+        }
+        memo.resize(n + 1, -1);
+        memo[0] = 0;
+        memo[1] = 1;
+        return _fib(n);
     }
 };
