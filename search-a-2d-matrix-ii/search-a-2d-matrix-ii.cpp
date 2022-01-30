@@ -1,12 +1,12 @@
 class Solution {
 public:
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
-        const int rows = matrix.size();
-        const int cols = matrix[0].size();
-        return _searchMatrix(matrix, 0, rows - 1, 0, cols - 1, target);
+        const int n_rows = matrix.size();
+        const int n_cols = matrix[0].size();
+        return _searchMatrix(matrix, target, 0, n_rows - 1, 0, n_cols - 1);
     }
 private:
-    bool _searchMatrix(vector<vector<int>>& matrix, int startRow, int endRow, int startCol, int endCol, int target) {
+    bool _searchMatrix(vector<vector<int>>& matrix, int target, int startRow, int endRow, int startCol, int endCol) {
         // base case
         if (startRow > endRow || startCol > endCol) {
             return false;
@@ -30,8 +30,8 @@ private:
             // x x m 2 2
             // 1 1 1 1 1
             // 1 1 1 1 1
-            return _searchMatrix(matrix, middleRow + 1, endRow, startCol, endCol, target) ||
-                _searchMatrix(matrix, startRow, middleRow, middleCol + 1, endCol, target);
+            return _searchMatrix(matrix, target, middleRow + 1, endRow, startCol, endCol) ||
+                _searchMatrix(matrix, target, startRow, middleRow, middleCol + 1, endCol);
         }
         else {
             // let m - is our middle point.
@@ -42,8 +42,8 @@ private:
             // 1 1 m x x
             // 1 1 x x x
             // 1 1 x x x
-            return _searchMatrix(matrix, startRow, endRow, startCol, middleCol - 1, target) ||
-                _searchMatrix(matrix, startRow, middleRow - 1, middleCol, endCol, target);
+            return _searchMatrix(matrix, target, startRow, endRow, startCol, middleCol - 1) ||
+                _searchMatrix(matrix, target, startRow, middleRow - 1, middleCol, endCol);
         }
     }
 };
