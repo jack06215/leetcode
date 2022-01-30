@@ -1,80 +1,35 @@
-class TrieNode {
-public:
-    bool is_word;
-    TrieNode* children[26];
-    TrieNode() {
-        is_word = false;
-        for (int i = 0; i < 26; i++) {
-            children[i] = nullptr;
-        }
-    }
-};
-
 class Trie {
 public:
-    Trie() {
-        root = new TrieNode();
-    }
+    Trie() {}
 
-    // Inserts a word into the trie.
     void insert(string word) {
-        int word_len = word.length();
-        int k = 0;
-        TrieNode* cur = root;
-
-        for (int i = 0; i < word_len; i++) {
-            k = word[i] - 'a';
-            if (cur->children[k] == nullptr) {
-                cur->children[k] = new TrieNode();
-            }
-            cur = cur->children[k];
+        Trie* node = this;
+        for (char ch : word) {
+            if (!node->next.count(ch)) { node->next[ch] = new Trie(); }
+            node = node->next[ch];
         }
-        cur->is_word = true;
+        node->isword = true;
     }
 
-    // Returns if the word is in the trie.
     bool search(string word) {
-        int word_len = word.length();
-        int k = 0;
-        TrieNode* cur = root;
-
-        for (int i = 0; i < word_len; i++) {
-            k = word[i] - 'a';
-            cur = cur->children[k];
-
-            if (cur == nullptr) {
-                return false;
-            }
+        Trie* node = this;
+        for (char ch : word) {
+            if (!node->next.count(ch)) { return false; }
+            node = node->next[ch];
         }
-
-        return cur->is_word;
+        return node->isword;
     }
 
-    // Returns if there is any word in the trie
-    // that starts with the given prefix.
     bool startsWith(string prefix) {
-        int word_len = prefix.length();
-        int k = 0;
-        TrieNode* cur = root;
-
-        for (int i = 0; i < word_len; i++) {
-            k = prefix[i] - 'a';
-            cur = cur->children[k];
-
-            if (cur == nullptr) {
-                return false;
-            }
+        Trie* node = this;
+        for (char ch : prefix) {
+            if (!node->next.count(ch)) { return false; }
+            node = node->next[ch];
         }
         return true;
     }
-private:
-    TrieNode* root;
-};
 
-/**
- * Your Trie object will be instantiated and called as such:
- * Trie* obj = new Trie();
- * obj->insert(word);
- * bool param_2 = obj->search(word);
- * bool param_3 = obj->startsWith(prefix);
- */
+private:
+    unordered_map<char, Trie*> next = {};
+    bool isword = false;
+};
