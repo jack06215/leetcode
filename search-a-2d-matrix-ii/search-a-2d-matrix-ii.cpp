@@ -3,17 +3,17 @@ public:
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
         const int rows = matrix.size();
         const int cols = matrix[0].size();
-        return hasTarget(matrix, 0, rows - 1, 0, cols - 1, target);
+        return _searchMatrix(matrix, 0, rows - 1, 0, cols - 1, target);
     }
 private:
-    bool hasTarget(vector<vector<int>>& matrix, int startRow, int endRow, int startCol, int endCol, int target) {
+    bool _searchMatrix(vector<vector<int>>& matrix, int startRow, int endRow, int startCol, int endCol, int target) {
         // base case
         if (startRow > endRow || startCol > endCol) {
             return false;
         }
         // find middle of the matrix
-        const int middleRow = floor((endRow - startRow) / 2) + startRow;
-        const int middleCol = floor((endCol - startCol) / 2) + startCol;
+        const int middleRow = ((endRow - startRow) / 2) + startRow;
+        const int middleCol = ((endCol - startCol) / 2) + startCol;
 
         // if we found the target we solve the problem, so return true  
         if (matrix[middleRow][middleCol] == target) {
@@ -30,8 +30,8 @@ private:
             // x x m 2 2
             // 1 1 1 1 1
             // 1 1 1 1 1
-            return hasTarget(matrix, middleRow + 1, endRow, startCol, endCol, target) ||
-                hasTarget(matrix, startRow, middleRow, middleCol + 1, endCol, target);
+            return _searchMatrix(matrix, middleRow + 1, endRow, startCol, endCol, target) ||
+                _searchMatrix(matrix, startRow, middleRow, middleCol + 1, endCol, target);
         }
         else {
             // let m - is our middle point.
@@ -42,8 +42,8 @@ private:
             // 1 1 m x x
             // 1 1 x x x
             // 1 1 x x x
-            return hasTarget(matrix, startRow, endRow, startCol, middleCol - 1, target) ||
-                hasTarget(matrix, startRow, middleRow - 1, middleCol, endCol, target);
+            return _searchMatrix(matrix, startRow, endRow, startCol, middleCol - 1, target) ||
+                _searchMatrix(matrix, startRow, middleRow - 1, middleCol, endCol, target);
         }
     }
 };
