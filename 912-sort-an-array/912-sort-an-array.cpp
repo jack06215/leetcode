@@ -1,7 +1,7 @@
 class Solution {
 public:
     vector<int> sortArray(vector<int>& nums) {
-        merge_sort(nums);
+        quick_sort(nums);
         return nums;
     }
 private:
@@ -24,6 +24,7 @@ private:
 
     void _quickSort(vector<int>& array, int left, int right) {
         if (left < right) {
+            swap(array[left + rand() % (right - left + 1)], array[left]);
             int pivot = partition(array, left, right);
             _quickSort(array, left, pivot - 1);
             _quickSort(array, pivot + 1, right);
@@ -34,16 +35,19 @@ private:
         vector<int> left_arr(begin(array) + front, begin(array) + mid + 1);
         vector<int> right_arr(begin(array) + mid + 1, begin(array) + end + 1);
 
+        // 在left_arr, right_arr尾端加入值為max元素
         left_arr.insert(left_arr.end(), numeric_limits<int>::max());
         right_arr.insert(right_arr.end(), numeric_limits<int>::max());
 
         int li = 0;
         int ri = 0;
         for (int i = front; i <= end; i++) {
+            // 左邊元素較小
             if (left_arr[li] <= right_arr[ri]) {
                 array[i] = left_arr[li];
                 li++;
             }
+            // 右邊元素較小
             else {
                 array[i] = right_arr[ri];
                 ri++;
