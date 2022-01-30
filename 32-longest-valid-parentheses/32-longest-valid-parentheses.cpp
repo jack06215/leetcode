@@ -10,7 +10,7 @@ public:
                 dp[i] = 0;
             }
             else if (s[i - 1] == ')') {
-                if (!stk.empty()) {
+                if (stk.empty()) {
                     dp[i] = 0;
                 }
                 if (!stk.empty() && s[stk.top()] == '(') {
