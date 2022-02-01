@@ -2,7 +2,7 @@ class Solution {
 public:
     vector<vector<int>> combine(int n, int k) {
         vector<vector<int>> ans;
-        dfs(n, k, 1, {}, ans);
+        dfs(n, k, 1, vector<int>(), ans);
         return ans;
     }
 
