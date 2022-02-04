@@ -8,7 +8,7 @@ public:
         }
         queue<TreeNode*> que;
         que.push(root);
-        while (que.size() > 0) {
+        while (!que.empty()) {
             int count = que.size();
             for (int i = 0; i < count; i++) {
                 root = que.front();
