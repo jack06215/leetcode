@@ -1,3 +1,8 @@
+#include <queue>
+#include <string>
+
+using namespace std;
+
 class Solution {
 public:
     vector<string> dial = { "", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };
@@ -7,21 +12,21 @@ public:
             return {};
         }
 
-        list<string> q;
+        queue<string> q;
         vector<string> ans;
 
-        q.push_back("");
+        q.push("");
         while (!q.empty()) {
             string curr = q.front();
-            q.pop_front();
+            q.pop();
 
             if (curr.length() == digits.length()) {
                 ans.push_back(curr);
             }
             else {
-                string s = dial[digits[curr.length()] - '0'];
+                auto s = dial[digits[curr.length()] - '0'];
                 for (auto x : s) {
-                    q.push_back(curr + x);
+                    q.push(curr + x);
                 }
             }
 
