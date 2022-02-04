@@ -1,17 +1,19 @@
 class Solution {
 public:
     bool isSameTree(TreeNode* p, TreeNode* q) {
-        if (p == nullptr && q == nullptr) {
-            return true;
+        stack<pair<TreeNode*, TreeNode* >> stk;
+        stk.emplace(p, q);
+        while (!stk.empty()) {
+            auto [p, q] = stk.top();
+            if (!p ^ !q || (p && q && p->val != q->val)) {
+                break;
+            }
+            stk.pop();
+            if (p && q) {
+                stk.emplace(p->right, q->right);
+                stk.emplace(p->left, q->left);
+            }
         }
-
-        if ((p && !q) || (!p && q)) {
-            return false;
-        }
-
-        if (p->val != q->val) {
-            return false;
-        }
-        return isSameTree(p->left, q->left) && isSameTree(p->right, q->right);
+        return stk.empty();
     }
 };
