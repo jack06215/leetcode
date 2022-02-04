@@ -1,19 +1,19 @@
 class Solution {
 public:
     bool isSameTree(TreeNode* p, TreeNode* q) {
-        stack<pair<TreeNode*, TreeNode* >> stk;
-        stk.emplace(p, q);
-        while (!stk.empty()) {
-            auto [p, q] = stk.top();
+        queue<pair<TreeNode*, TreeNode*>> bfs;
+        bfs.emplace(p, q);
+        while (!bfs.empty()) {
+            auto [p, q] = bfs.front();
             if (!p ^ !q || (p && q && p->val != q->val)) {
                 break;
             }
-            stk.pop();
+            bfs.pop();
             if (p && q) {
-                stk.emplace(p->right, q->right);
-                stk.emplace(p->left, q->left);
+                bfs.emplace(p->left, q->left);
+                bfs.emplace(p->right, q->right);
             }
         }
-        return stk.empty();
+        return bfs.empty();
     }
 };
